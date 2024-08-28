@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Solicitudes</title>
+    <!-- Enlace a Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Contenedor principal -->
+    <div class="container mt-5">
+        <!-- Título principal -->
+        <h1 class="text-center mb-4">Mis Solicitudes de Servicio</h1>
+
+        <!-- Tarjeta contenedora -->
+        <div class="card shadow p-4 mb-5 bg-light rounded">
+            <% if (requests.length > 0) { %>
+                <!-- Tabla de solicitudes estilizada dentro de la tarjeta -->
+                <table class="table table-striped table-hover">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Servicio</th>
+                            <th>Técnico</th>
+                            <th>Dirección</th>
+                            <th>Estado</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% requests.forEach(request => { %>
+                            <tr>
+                                <td><%= request.service_name %></td>
+                                <td><%= request.technician_name %></td>
+                                <td><%= request.address %></td>
+                                <td>
+                                    <!-- Aplicar color de fondo según el estado -->
+                                    <span class="badge 
+                                        <%= request.status === 'Pendiente' ? 'bg-warning text-dark' : 
+                                            request.status === 'Completado' ? 'bg-success' : 
+                                            'bg-secondary' %>">
+                                        <%= request.status %>
+                                    </span>
+                                </td>
+                                <td><%= new Date(request.created_at).toLocaleDateString() %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            <% } else { %>
+                <!-- Mensaje de no solicitudes dentro de la tarjeta -->
+                <div class="alert alert-info text-center" role="alert">
+                    No tienes solicitudes realizadas.
+                </div>
+            <% } %>
+        </div>
+
+        <!-- Botones de navegación -->
+        <div class="text-center">
+            <a href="/dashboard" class="btn btn-outline-primary me-2">Volver al Dashboard</a>
+            <a href="/logout" class="btn btn-outline-danger">Cerrar sesión</a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
