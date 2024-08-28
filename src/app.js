@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
-const cookieParser = require('cookie-parser'); // Requerir cookie-parser
+const cookieParser = require('cookie-parser');
 const db = require('../config/database'); // Conectar la base de datos MySQL
 //const mysql = require('mysql2/promise');
 const app = express();
@@ -14,14 +14,14 @@ const PORT = process.env.PORT || 3000;
 
 
 
-const mysql = require('mysql2/promise'); // Asegúrate de tener la versión promise instalada y requerida
+const mysql = require('mysql2/promise');
 
 // Configuración del pool de conexiones
 const pool = mysql.createPool({
-    host: 'localhost',           // Cambia según la configuración de tu servidor MySQL
-    user: 'root',          // Reemplaza con tu usuario de MySQL
-    password: '@180899W',   // Reemplaza con tu contraseña de MySQL
-    database: 'proyecto_web', // Reemplaza con el nombre de tu base de datos
+    host: 'localhost',         
+    user: 'root',         
+    password: '@180899W',   
+    database: 'proyecto_web', 
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
@@ -44,7 +44,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Configurar el middleware cookie-parser
-app.use(cookieParser()); // Usar cookie-parser
+app.use(cookieParser()); 
 
 // Configurar el almacenamiento de sesiones en MySQL
 const sessionStore = new MySQLStore({
