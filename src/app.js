@@ -6,11 +6,38 @@ const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
 const cookieParser = require('cookie-parser'); // Requerir cookie-parser
 const db = require('../config/database'); // Conectar la base de datos MySQL
-
+//const mysql = require('mysql2/promise');
 const app = express();
 
 // Configuración del puerto
 const PORT = process.env.PORT || 3000;
+
+
+
+const mysql = require('mysql2/promise'); // Asegúrate de tener la versión promise instalada y requerida
+
+// Configuración del pool de conexiones
+const pool = mysql.createPool({
+    host: 'localhost',           // Cambia según la configuración de tu servidor MySQL
+    user: 'root',          // Reemplaza con tu usuario de MySQL
+    password: '@180899W',   // Reemplaza con tu contraseña de MySQL
+    database: 'proyecto_web', // Reemplaza con el nombre de tu base de datos
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+});
+
+// Verificar la conexión al iniciar la app
+pool.getConnection()
+    .then(connection => {
+        //console.log('Conectado a la base de datos MySQL.');
+        connection.release(); // Liberar la conexión
+    })
+    .catch(error => {
+        console.error('Error al conectar a la base de datos:', error);
+    });
+
+
 
 app.set('view engine', 'ejs');
 // Establecer la ubicación de las vistas
@@ -156,6 +183,19 @@ app.post('/solicitar-servicio', (req, res) => {
     });
 });
 
+// Ruta para obtener la lista de técnicos
+app.get('/technicians', async (req, res) => {
+    try {
+        // Consulta a la base de datos para obtener los técnicos
+        const [rows] = await pool.query('SELECT * FROM technicians');
+        
+        // Renderizar la vista de técnicos con los datos obtenidos
+        res.render('technicians', { technicians: rows });
+    } catch (error) {
+        console.error('Error al obtener técnicos:', error);
+        res.status(500).send('Error al obtener la lista de técnicos');
+    }
+});
 
 // Manejar el cierre de sesión
 app.get('/logout', (req, res) => {
@@ -190,6 +230,43 @@ app.get('/requests', (req, res) => {
         });
     } else {
         res.redirect('/login');
+    }
+});
+
+
+// Ruta para mostrar el formulario de solicitud de servicio
+app.get('/service-request', (req, res) => {
+    const service = req.query.service; // Captura el servicio seleccionado desde la URL
+    res.render('service-request', { service }); // Renderiza la vista con el servicio seleccionado
+});
+
+// Ruta para procesar la solicitud de servicio
+app.post('/submit-service-request', async (req, res) => {
+    const { name, phone, address, email, service } = req.body;
+
+    try {
+        // Insertar la información del cliente en la tabla 'clients'
+        const [clientResult] = await pool.query(
+            'INSERT INTO clients (name, phone, address, email) VALUES (?, ?, ?, ?)',
+            [name, phone, address, email]
+        );
+
+        // Obtener el ID del cliente recién insertado
+        const clientId = clientResult.insertId;
+
+        // Insertar la solicitud del servicio en la tabla 'service_requests'
+        await pool.query(
+            'INSERT INTO service_request_clientnoregister (client_id, service, status) VALUES (?, ?, ?)',
+            [clientId, service, 'Pendiente']
+        );
+         
+        // Agregar msg de confirmación
+        // Redirigir al dashboard o a una página de confirmación
+        res.send('Solicitud registrada con éxito');
+        //res.redirect('/dashboard'); 
+    } catch (error) {
+        console.error('Error al procesar la solicitud de servicio:', error);
+        res.status(500).send('Error al procesar la solicitud de servicio');
     }
 });
 
