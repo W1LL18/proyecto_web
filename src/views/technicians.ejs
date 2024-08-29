@@ -1,4 +1,3 @@
-<!-- views/technicians.ejs -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,51 +6,70 @@
     <title>Técnicos Disponibles</title>
     <!-- Enlace a Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Enlace a Font Awesome para las estrellas -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
 <body>
-    <!-- Barra de navegación -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="/">Plataforma de Reparaciones</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/registro">Registrarse</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Iniciar Sesión</a>
-                    </li>
-                </ul>
-            </div>
+  <!-- Barra de navegación -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="/">Plataforma de Reparaciones</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/technicians">Nuestros Técnicos</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/registro">Registrarse</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Iniciar Sesión</a>
+                </li>
+            </ul>
         </div>
-    </nav>
-
+    </div>
+</nav>
     <!-- Contenido principal -->
     <main class="container mt-5">
         <h1 class="text-center mb-4">Técnicos Disponibles</h1>
         <div class="row">
             <% technicians.forEach(tech => { %>
                 <div class="col-md-4 mb-4">
-                    <div class="card">
+                    <div class="card h-100 shadow-sm">
                         <img src="https://via.placeholder.com/150" class="card-img-top" alt="Foto del técnico">
                         <div class="card-body">
-                            <h5 class="card-title"><%= tech.name %></h5>
+                            <h5 class="card-title text-center"><%= tech.name %></h5>
                             <p class="card-text">
                                 <strong>Especialidad:</strong> <%= tech.specialty %> <br>
-                                <strong>Email:</strong> <%= tech.email %> <br>
-                                <strong>Teléfono:</strong> <%= tech.phone %>
+                                <strong>Reputación:</strong> <!-- Mostrar la reputación con estrellas -->
+                                <% for (let i = 1; i <= 5; i++) { %>
+                                    <i class="fa<%= i <= tech.reputation ? 's' : 'r' %> fa-star text-warning"></i>
+                                <% } %>
+                                <!-- <strong>Email:</strong> <%= tech.email %> <br> -->
+                                <!-- <strong>Teléfono:</strong> <%= tech.phone %> -->
                             </p>
-                            <a href="#" class="btn btn-primary">Contactar</a>
                         </div>
                     </div>
                 </div>
             <% }); %>
+        </div>
+
+        <!-- Recuadro de Acciones de Registro e Iniciar Sesión -->
+        <div class="card mt-4 shadow-sm border-0">
+            <div class="card-body text-center">
+                <h5 class="card-title">¿Eres nuevo en la plataforma?</h5>
+                <p class="card-text">Regístrate o inicia sesión para acceder a todos los servicios.</p>
+                <a href="/registro" class="btn btn-primary me-2">Regístrate</a>
+                <a href="/login" class="btn btn-secondary">Inicia sesión</a>
+            </div>
         </div>
     </main>
 
@@ -60,7 +78,7 @@
         <p class="mb-0">&copy; 2024 Plataforma de Reparaciones. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- Bootstrap JS -->
+    <!-- Bootstrap JS y Font Awesome -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
