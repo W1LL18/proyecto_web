@@ -6,39 +6,80 @@
     <title>Iniciar Sesión - Plataforma de Reparaciones</title>
     <!-- Enlace a Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/styles.css">
+    <!-- Font Awesome para los íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        body {
+            background-color: #f4f7fa;
+        }
+        .login-card {
+            border: none;
+            border-radius: 12px;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn-google {
+            background-color: #dd4b39;
+            color: white;
+        }
+        .btn-facebook {
+            background-color: #3b5998;
+            color: white;
+        }
+        .btn-github {
+            background-color: #24292e;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-    <!-- Barra de navegación -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="/">Plataforma de Reparaciones</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/registro">Registrarse</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/login">Iniciar Sesión</a>
-                    </li>
-                </ul>
-            </div>
+
+  <!-- Barra de navegación -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="/">Plataforma de Reparaciones</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/technicians">Nuestros Técnicos</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/registro">Registrarse</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/login">Iniciar Sesión</a>
+                </li>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
 
     <!-- Contenedor principal -->
     <main class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <!-- Tarjeta para el formulario de inicio de sesión -->
-                <div class="card shadow p-4 bg-light rounded">
+                <div class="card shadow p-4 bg-light rounded login-card">
                     <h2 class="text-center mb-4">Iniciar Sesión</h2>
+
+                    <!-- Botones de inicio de sesión social -->
+                    <div class="d-grid gap-2 mb-4">
+                        <button class="btn btn-google btn-block"><i class="fab fa-google me-2"></i> Iniciar sesión con Google</button>
+                        <button class="btn btn-facebook btn-block"><i class="fab fa-facebook-f me-2"></i> Iniciar sesión con Facebook</button>
+                        <button class="btn btn-github btn-block"><i class="fab fa-github me-2"></i> Iniciar sesión con GitHub</button>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <!-- Formulario de inicio de sesión tradicional -->
                     <form action="/login" method="POST">
                         <div class="mb-3">
                             <label for="email" class="form-label">Correo Electrónico:</label>
@@ -50,6 +91,11 @@
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
                     </form>
+
+                    <!-- Link para recuperar la contraseña -->
+                    <div class="text-center mt-3">
+                        <a href="/reset-password" class="text-muted">¿Olvidaste tu contraseña?</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -60,7 +106,7 @@
         <p class="mb-0">&copy; 2024 Plataforma de Reparaciones. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- Bootstrap JS -->
+    <!-- Bootstrap JS y FontAwesome -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

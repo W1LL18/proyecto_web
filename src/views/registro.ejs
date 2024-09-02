@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Plataforma de Reparaciones</title>
+    <!-- Enlace a Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Enlace a Font Awesome para íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+<body>
+     <!-- Barra de navegación -->
+     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">Plataforma de Reparaciones</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/technicians">Nuestros Técnicos</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/registro">Registrarse</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Iniciar Sesión</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenedor principal -->
+    <main class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <!-- Tarjeta para el formulario de registro -->
+                <div class="card shadow p-4">
+                    <h2 class="text-center mb-4">Registro de Usuario</h2>
+                    <!-- Mensaje de error o éxito -->
+                    <% if (error) { %>
+                        <div class="alert alert-danger"><%= error %></div>
+                    <% } %>
+            
+                    <% if (success) { %>
+                        <div class="alert alert-success"><%= success %></div>
+                    <% } %>
+
+                    <!-- Formulario de registro -->
+                    <form action="/registro" method="POST">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label"><i class="fas fa-user icon"></i>Nombre:</label>
+                            <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Ingresa tu nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label"><i class="fas fa-envelope icon"></i>Correo Electrónico:</label>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="Ingresa tu correo electrónico" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="telefono" class="form-label"><i class="fas fa-phone icon"></i>Teléfono:</label>
+                            <input type="tel" id="telefono" name="telefono" class="form-control" placeholder="Ingresa tu número de teléfono" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label"><i class="fas fa-lock icon"></i>Contraseña:</label>
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Crea una contraseña segura" required>
+                            <small class="form-text text-muted">Debe tener al menos 8 caracteres, incluyendo un número y una letra mayúscula.</small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirm-password" class="form-label"><i class="fas fa-lock icon"></i>Confirmar Contraseña:</label>
+                            <input type="password" id="confirm-password" name="confirm_password" class="form-control" placeholder="Repite la contraseña" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 mt-3">Registrarse</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p class="mb-0">&copy; 2024 Plataforma de Reparaciones. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
